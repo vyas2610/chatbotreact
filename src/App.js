@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import axios from "axios";
+import React from "react";
 
-function App() {
+const App = () => {
+  async function generateAns() {
+    console.log("loadind...!");
+    const response = await axios({
+      url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=YourAPIKey",
+      method: "post",
+      data: {
+        contents: [
+          {
+            parts: [{ text: "Daal Fry kse bnatge hai?" }],
+          },
+        ],
+      },
+    });
+    console.log(
+      response["data"]["candidates"][0]["content"]["parts"][0]["text"]
+    );
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Hello</h1>
+      <button onClick={generateAns}>Generate Ans</button>
     </div>
   );
-}
+};
 
 export default App;
